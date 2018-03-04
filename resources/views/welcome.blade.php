@@ -1,95 +1,89 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">  <!-- menghindari csrf-token error -->
 
-        <title>Laravel</title>
+  <title>Laravel</title>
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <style media="screen">
+    nav.navbar{
+      margin-bottom: 0;
+    }
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    #image-form-wrapper {
+      margin-top: 20px;
+      background: #f7f7f7;
+    }
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    #images {
+      background: #eee;
+      padding: 20px 0;
+    }
+  </style>
 
-            .full-height {
-                height: 100vh;
-            }
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          My Images
+        </a>
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="#">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+  <section id="image-form-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Imam nawawi
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Upload Your Images</h3>
             </div>
+            <div class="panel-body">
+              <form action="/" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <input type="text" name="title" class="form-control" id="" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <input type="file" name="filename" class="form-control" id="" placeholder="Chosen File ...">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
         </div>
-    </body>
+      </div>
+    </div>
+  </section>
+  <section id="images">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="http://via.placeholder.com/450x300" alt="">
+            <div class="caption">
+              <h3>Image Title</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="{{ asset('js/app.js') }}" charset="utf-8"></script>
+</body>
 </html>
