@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaksUserTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTaksUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('taks_user', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->string('title');
+            $table->string('file_name');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTaksUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taks_user');
+        Schema::dropIfExists('images');
     }
 }

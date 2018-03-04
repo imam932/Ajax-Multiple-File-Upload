@@ -11,14 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/who', function(){
-    return "WTF for you";
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ImageController@index');
+Route::post('/', 'ImageController@store');

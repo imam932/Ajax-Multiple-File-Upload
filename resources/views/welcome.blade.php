@@ -52,6 +52,7 @@
             </div>
             <div class="panel-body">
               <form action="/" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="form-group">
                   <input type="text" name="title" class="form-control" id="" placeholder="Title">
                 </div>
