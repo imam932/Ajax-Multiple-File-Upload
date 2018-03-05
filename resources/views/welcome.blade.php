@@ -51,6 +51,15 @@
               <h3 class="panel-title">Upload Your Images</h3>
             </div>
             <div class="panel-body">
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
               <form action="/" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">

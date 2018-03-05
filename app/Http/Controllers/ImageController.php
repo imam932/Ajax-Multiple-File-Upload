@@ -11,8 +11,13 @@ class ImageController extends Controller
       return view('welcome');
     }
 
-    public function store()
+    public function store( Request $request)
     {
+      $request->validate([
+          'file_name' => 'image|mimes:jpg,jpeg,png,gif,bmp',
+          'title'     => 'required'
+      ]);
+
       // menampilkan pesan
       dd('Ready to Upload');
     }
