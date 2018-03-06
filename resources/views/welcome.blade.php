@@ -66,7 +66,7 @@
                   <input type="text" name="title" class="form-control" id="" placeholder="Title">
                 </div>
                 <div class="form-group">
-                  <input type="file" name="filename" class="form-control" id="" placeholder="Chosen File ...">
+                  <input type="file" name="file_name" class="form-control" id="" placeholder="Chosen File ...">
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-success">Upload</button>
