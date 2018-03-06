@@ -1,6 +1,16 @@
 # Ajax-Multiple-File-Upload
 Ajax Multiple File Upload dengan Laravel 5.5 + Vue.js 2
 
+## Controller
+* Fungsi store untuk melakukan pengelolaan penyimpanan data
+```
+public function store()
+{
+  // menampilkan pesan di halaman web
+  dd('Ready to Upload');
+}
+```
+
 ## Validasi
 * Melakukan validasi pada saat upload image
 ```
