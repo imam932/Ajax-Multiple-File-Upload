@@ -59,6 +59,10 @@
                     @endforeach
                   </ul>
                 </div>
+              @elseif (session('message'))
+                <div class="alert alert-info">
+                  {{ session('message') }}
+                </div>
               @endif
               <form action="/" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
