@@ -9,40 +9,64 @@ class ImageController extends Controller
 {
     public function index()
     {
-      return view('welcome');
+      // mengambil data yang terakhir di input
+      // $images = Image::orderBy('create_at','desc')->get(); atau menggunakan ->
+      $images = Image::latest()->get();
+      return view('welcome', compact('images'));
     }
 
     public function store( Request $request)
     {
       $request->validate([
-          'file_name' => 'image|mimes:jpg,jpeg,png,gif,bmp',
-          'title'     => 'required'
+          'file_name.*' => 'image|mimes:jpg,jpeg,png,gif,bmp',
+          
       ]);
 
-      // mendeklarasikan Model Image
+      $images = $this->uploadFiles($request);
+
+      foreach ($images as $imageFile) {
+
+        // membuat judul image
+        list($fileName, $title) = $imageFile;
+
+        //  mendeklarasikan Model Image
       $image = new Image();
        // menampung dari request form
-       $image->title      = $request->title;
-       $image->file_name  = $this->uploadFile($request); // mengambil dari method dan berisi object $request
+       
+       $image->title      = $title;
+       $image->file_name  = $fileName; // mengambil dari method dan berisi object $request
        $image->save(); //menyimpan ke database
+
+      }
 
        return redirect('/')->with('message', 'Your Image Successfully Uploaded!');
     }
 
-    protected function uploadFile($request)
+    protected function uploadFiles($request)
     {
+      $uploadedImages = [];
       if ($request->hasFile('file_name'))
       {
-          $image = $request->file('file_name');
-          $fileName = $image->getClientOriginalName(); //mengambil nama file yg di upload
-          $destination = storage_path('app/public');
+          $images = $request->file('file_name');
 
-          if($image->move($destination, $fileName))
-          {
-            return $fileName;
+          foreach ($images as $image) {
+            $uploadedImages[] = $this->uploadFile($image);
           }
       }
 
-      return null;
+      return $uploadedImages;
+    }
+
+    protected function uploadFile($image)
+    {
+          $originalFileName = $image->getClientOriginalName(); //mengambil nama file yg di upload
+          $extension = $image->getClientOriginalExtension();
+          $fileNameOnly = pathinfo($originalFileName, PATHINFO_FILENAME);
+          $fileName = str_slug($fileNameOnly) . "-" . time() . "." .$extension;
+ 
+           
+        $uploadedFileName = $image->storeAS('public', $fileName);
+    
+        return [$uploadedFileName, $fileNameOnly];
     }
 }

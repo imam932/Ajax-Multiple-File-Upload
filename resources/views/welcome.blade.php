@@ -67,10 +67,7 @@
               <form action="/" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
-                  <input type="text" name="title" class="form-control" id="" placeholder="Title">
-                </div>
-                <div class="form-group">
-                  <input type="file" name="file_name" class="form-control" id="" placeholder="Chosen File ...">
+                  <input type="file" name="file_name[]" class="form-control" placeholder="Chosen File ..." multiple>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-success">Upload</button>
@@ -86,14 +83,24 @@
   <section id="images">
     <div class="container">
       <div class="row">
+      @if($images->count() < 1)
+        <div class="alert alert-danger">
+          You have no images
+        </div>
+      @endif
+      
+      @foreach($images as $image)
         <div class="col-md-4">
           <div class="thumbnail">
-            <img src="http://via.placeholder.com/450x300" alt="">
+            <!--<img src="{{ asset('storage/' . $image->file_name) }}" alt="">  cara 1-->
+            <img src="{{ $image->src }}" alt="">
             <div class="caption">
-              <h3>Image Title</h3>
+              <h3>{{$image->title}}</h3>
             </div>
           </div>
         </div>
+        @endforeach
+        
       </div>
     </div>
   </section>
