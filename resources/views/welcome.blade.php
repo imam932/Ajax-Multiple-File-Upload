@@ -64,15 +64,22 @@
                   {{ session('message') }}
                 </div>
               @endif
+              
+              <!--<form-upload></form-upload>-->
+
               <form action="/" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
+                  {{ csrf_field() }}
                 <div class="form-group">
-                  <input type="file" name="file_name[]" class="form-control" placeholder="Chosen File ..." multiple>
+                  <!--<file-input v-on:file-change="setFiles"></file-input>-->
+                  <label>Image</label>
+                  <!--<file-input></file-input>-->
+                  <input type="file" name="file_name[]" multiple>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-success">Upload</button>
-                </div>
-              </form>
+            <button type="submit" class="btn btn-success">Upload</button>
+        </div>
+    </form>
+
             </div>
           </div>
 
@@ -106,5 +113,6 @@
   </section>
 
   <script src="{{ asset('js/app.js') }}" charset="utf-8"></script>
+  
 </body>
 </html>
